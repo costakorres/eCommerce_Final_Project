@@ -42,5 +42,13 @@ class Playlist extends \app\core\Model{
 		$STMT = self::$_connection->prepare($SQL);
 		$STMT->execute(['playlist_id'=>$playlist_id]);//associative array with key => value pairs
 	}
+	
+	public function query($query){
+		$SQL = 'SELECT * FROM Playlist WHERE name LIKE :query';
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['query'=>"%$query%"]);
+		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\Playlist');
+		return $STMT->fetchAll();
+	}
 
 }

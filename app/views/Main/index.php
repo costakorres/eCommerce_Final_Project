@@ -1,24 +1,32 @@
 <html>
-<head><title>Animal index</title></head><body>
+<head><title>User index</title></head><body>
 
-<a href="/Main/insert">Create a new animal</a>
+<a href="/Main/register">Create a new user</a>
+<a href="/Main/logout">log out</a>
+<a href="/Song/index/<?php echo $data['user_id'];?>">Upload a new song</a>
 <table>
-	<tr><th>Species</th><th>Colour</th><th>actions</th></tr>
+	<tr><th>Username</th><th>user_id</th><th>actions</th></tr>
 <?php
-foreach($data as $animal){
+foreach($data["results"] as $user){
 
 	echo "<tr>
-			<td>$animal->species</td>
-			<td>$animal->colour</td>
+			<td>$user->username</td>
+			<td>$user->user_id</td>
 			<td>
-				<a href='/Main/details/$animal->animal_id'>details</a> | 
-				<a href='/Main/edit/$animal->animal_id'>edit</a> | 
-				<a href='/Main/delete/$animal->animal_id'>delete</a> |
-				<a href='/Vaccine/index/$animal->animal_id'>vaccination</a>
+				<a href='/Main/details/$user->user_id'>details</a> | 
+				<a href='/Main/edit/$user->user_id'>edit</a> | 
+				<a href='/Main/delete/$user->user_id'>delete</a> |
+				<a href='/Vaccine/index/$user->user_id'>vaccination</a>
 			</td>
 		</tr>";
 }
 ?>
 </table>
+</br>
+
+<form action='/Main/search' method='post'>
+	<input type='text' name='query' placeholder="Search for user/song/playlist by name"/>
+	<input type='submit' name='action' value='Search'/>
+</form>
 </body>
 </html>

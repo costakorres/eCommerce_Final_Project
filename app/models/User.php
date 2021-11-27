@@ -19,12 +19,25 @@ class User extends \app\core\Model{
 		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\User');
 		return $STMT->fetch();//return the record
 	}
+	public function getAll(){
+		$SQL = 'SELECT * FROM user';
+		$STMT = self::$_connection->query($SQL);
+		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\User');
+		return $STMT->fetchAll();//returns an array of all the records
+	}
 
 	public function insert(){
 		$this->password_hash = password_hash($this->password, PASSWORD_DEFAULT);
 		$SQL = 'INSERT INTO user(username, password_hash) VALUES (:username,:password_hash)';
 		$STMT = self::$_connection->prepare($SQL);
 		$STMT->execute(['username'=>$this->username,'password_hash'=>$this->password_hash]);//associative array with key => value pairs
+	}
+	public function query($username){
+		$SQL = 'SELECT * FROM user WHERE username LIKE :username';
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['username'=>"%$username%"]);
+		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\User');
+		return $STMT->fetchAll();
 	}
 
 /*	public function update(){//update an user record

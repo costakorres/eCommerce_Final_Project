@@ -10,6 +10,7 @@ class Login	{
 			header('location:/Main/login');
 			return true;
 		}
+
 		return false;
 	}
 }
