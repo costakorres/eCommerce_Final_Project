@@ -1,10 +1,11 @@
 <html>
-<head><title>Edit an Animal</title></head><body>
-Edit the animal
+<head><title>Edit a User</title></head><body>
+Editing <?php echo $data->username; ?>
 <form action='' method='post'>
-	Animal species: <input type='text' name='species' value='<?php echo $data->species; ?>' /><br>
-	Animal colour: <input type='text' name='colour' value='<?php echo $data->colour; ?>' /><br>
+	Username <input type='text' name='username' value='<?php echo $user->username; ?>' /><br>
 	<input type='submit' name='action' value='Save changes' />
 </form>
 
 </body></html>
+
+<?php echo $data->species; ?>
