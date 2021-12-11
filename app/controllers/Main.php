@@ -29,30 +29,31 @@ class Main extends \app\core\Controller{
 	}
 	*/
 
-	public function delete($user_id){//delete a record with the known user_id PK value
-		$user = new \app\models\User();
-		$user->delete($user_id);
+	public function delete($animal_id){//delete a record with the known animal_id PK value
+		$animal = new \app\models\Animal;
+		$animal->delete($animal_id);
 		header('location:/Main/index');
 	}
 
-	public function edit($user_id){//edit a record with known user_id PK value
-		$user = new \app\models\User();
-		$user = $user->get($user_id);
+	public function edit($animal_id){//edit a record for te record with known animal_id PK
+		$animal = new \app\models\Animal;
+		$animal = $animal->get($animal_id);
 
 		if(isset($_POST['action'])){//am i submitting the form?
 			//handle the input overwriting the existing properties
-			$user->setUsername($_POST['username']);
-			$user->update();//call the update SQL
+			$animal->setSpecies($_POST['species']);
+			$animal->setColour($_POST['colour']);
+			$animal->update();//call the update SQL
 			//redirect after changes
 			header('location:/Main/index');
 		}else
-			$this->view('Main/edit',$user);
+			$this->view('Main/edit',$animal);
 	}
 
-	public function details($user_id){
-		$user = new \app\models\User();
-		$user = $user->get($user_id);
-		$this->view('Main/details',$user);
+	public function details($animal_id){
+		$animal = new \app\models\Animal;
+		$animal = $animal->get($animal_id);
+		$this->view('Main/details',$animal);
 	}
 
 
@@ -115,6 +116,7 @@ class Main extends \app\core\Controller{
 		}else //1 present a form to the user
 			$this->view('Main/login');
 	}
+
 
 	public function logout(){
 		//destroy session variables
