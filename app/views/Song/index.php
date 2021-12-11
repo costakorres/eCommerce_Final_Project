@@ -21,7 +21,7 @@
 
 	<br>Song title: <input type='text' name='title' /><br>
 	Song artist: <input type='text' name='artist' /><br>
-	description <input type='text' name='description' /><br>
+	Description <input type='text' name='description' /><br>
 		<input type="submit" name="action">
 	</form>
 
