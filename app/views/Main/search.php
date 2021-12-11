@@ -6,7 +6,10 @@
 <table>
 	<tr><th>Name</th><th>actions</th></tr>
 <?php
-
+/*<audio controls>
+					<source src='/audio/$song->filename' type='audio/mp3' >
+				</audio>
+				<td><a href='/Song/details/$song->song_id'>View details</a></td>*/
 if($data["users"] != null)
 foreach($data["users"] as $user){
 
@@ -21,11 +24,7 @@ foreach($data["songs"] as $song)
 {
 	echo "<tr>
 			<td>$song->title</td>
-			<td>
-				<audio controls>
-					<source src='/audio/$song->filename' type='audio/mp3' >
-				</audio>
-			</td>
+			<td><a href='/Song/details/$song->song_id'>details</a></td>
 		</tr>";
 }
 

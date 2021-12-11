@@ -13,6 +13,13 @@ class Liked_songs extends \app\core\Model{
 		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\liked_songs');
 		return $STMT->fetch();//return the record
 	}
+	public function getAll($user_id){
+		$SQL = 'SELECT * FROM liked_songs WHERE user_id=:user_id';
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['user_id'=>$user_id]);
+		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\Song');
+		return $STMT->fetchAll();
+	}
 
 	public function insert(){
 		$SQL = 'INSERT INTO liked_songs(song_id,user_id,order) VALUES (:song_id,:user_id,:order)';

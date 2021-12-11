@@ -4,7 +4,6 @@ namespace app\models;
 class Song extends \app\core\Model{
 	public $title;
 	public $artist;
-	public $runtime;
 	public $filename;
 	public $user_id;
 	public $description;

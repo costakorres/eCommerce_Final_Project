@@ -4,17 +4,16 @@ namespace app\controllers;
 class Main extends \app\core\Controller{
 
 #[\app\filters\Login]
-	public function index(){//listing the records
-		//instead of
-		$myUser = new \app\models\User();
-		$results = $myUser->getAll();
+	public function index(){
 
-		//TODO: we want to get all models to extend a Model base class in app\core.
-		//1- create a Model base class with a constructor method
-		//2- extend this base class in your Animal model
+		$myUser = new \app\models\User();
+		$myUser = $myUser->getById($_SESSION['user_id']);
+
+		$mySong = new \app\models\Song();
+		$results = $mySong->getAll($_SESSION['user_id']);
 
 		//note: the paths here are not subject to namespacing because these are NOT classes
-		$this->view('Main/index',['results'=>$results,'user_id'=>$_SESSION['user_id'] ]);
+		$this->view('Main/index',['results'=>$results,'my_user'=>$myUser ]);
 	}
 
 	/*

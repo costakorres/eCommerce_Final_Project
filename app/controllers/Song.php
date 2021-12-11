@@ -4,7 +4,7 @@ namespace app\controllers;
 class Song extends \app\core\Controller{
 	private $folder='audio/';
 
-	public function index($user_id){
+	public function upload($user_id){
 		//implement file uploads
 
 		if(isset($_POST['action'])){
@@ -65,5 +65,11 @@ class Song extends \app\core\Controller{
 			$songs = $song->getAll($user_id);
 			$this->view('Song/index',['error'=>null,'songs'=>$songs]);
 		}
+	}
+
+	public function details($song_id){//delete a record with the known animal_id PK value
+		$song = new \app\models\Song;
+		$song=$song->get($song_id);
+		$this->view('Song/details',['song'=>$song]);
 	}
 }

@@ -19,6 +19,13 @@ class User extends \app\core\Model{
 		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\User');
 		return $STMT->fetch();//return the record
 	}
+	public function getById($user_id){
+		$SQL = 'SELECT * FROM user WHERE user_id LIKE :user_id';
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['user_id'=>$user_id]);
+		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\User');
+		return $STMT->fetch();//return the record
+	}
 	public function getAll(){
 		$SQL = 'SELECT * FROM user';
 		$STMT = self::$_connection->query($SQL);
