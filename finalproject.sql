@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2021 at 11:03 PM
+-- Generation Time: Dec 12, 2021 at 05:45 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -42,8 +42,18 @@ CREATE TABLE `liked_playlists` (
 CREATE TABLE `liked_songs` (
   `user_id` int(11) NOT NULL,
   `song_id` int(11) NOT NULL,
-  `date` date NOT NULL
+  `order` int(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `liked_songs`
+--
+
+INSERT INTO `liked_songs` (`user_id`, `song_id`, `order`) VALUES
+(1, 2, 2),
+(1, 4, 2),
+(3, 2, 2),
+(3, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -69,6 +79,14 @@ CREATE TABLE `playlist` (
   `name` varchar(40) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `playlist`
+--
+
+INSERT INTO `playlist` (`playlist_id`, `user_id`, `name`, `description`) VALUES
+(1, 3, 'playlist 1', ''),
+(2, 1, 'playlist two', '');
 
 -- --------------------------------------------------------
 
@@ -123,7 +141,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `username`, `password_hash`) VALUES
 (1, 'elia', '$2y$10$4rpeEGd8erMGr/r.wO5JEe9JTlc6CGc0bP5hL6oTtLSHI1qgxL2eu'),
-(2, 'elia2', '$2y$10$GgaR2dryT3iGIiWzdZcou.gHlCn/l0g3Jt6Rix7DYhMVpkrhTl1dq');
+(2, 'elia2', '$2y$10$GgaR2dryT3iGIiWzdZcou.gHlCn/l0g3Jt6Rix7DYhMVpkrhTl1dq'),
+(3, '1', '$2y$10$zSSLQ9WYLNd6jLTpZejtm.W71dAUiwb7pRlT48zn8Jtx6x5dS2HXG');
 
 --
 -- Indexes for dumped tables
@@ -195,7 +214,7 @@ ALTER TABLE `played_songs`
 -- AUTO_INCREMENT for table `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `playlist_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `playlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `song`
@@ -207,7 +226,7 @@ ALTER TABLE `song`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
