@@ -94,9 +94,9 @@ class Playlist extends \app\core\Controller
 			$this->view('Playlist/make');
 	}
 
-	}
-	public function add($playlist_id$song_id=null){
+	public function add($playlist_id, $song_id=null){
 
 		$myUser = new \app\models\User();
 		$myUser = $myUser->getById($_SESSION['user_id']);
-G<_+
+	}
+}
