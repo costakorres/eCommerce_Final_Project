@@ -67,9 +67,9 @@ class Song extends \app\core\Controller{
 		}
 	}
 
-	public function details($song_id){//delete a record with the known animal_id PK value
+	public function details($song_id,$query=null){
 		$song = new \app\models\Song;
 		$song=$song->get($song_id);
-		$this->view('Song/details',['song'=>$song]);
+		$this->view('Song/details',['song'=>$song,"query"=>$query]);
 	}
 }

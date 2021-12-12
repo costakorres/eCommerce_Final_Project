@@ -3,6 +3,7 @@
 	<title>Playlists</title>
 </head>
 <body>
+<a href='/Main/search/<?php if(isset($data["query"])){echo $data["query"];} ?>'>Back to search results</a>
 
 <table>
 <tr><th>Name</th><th>Description</th><th>Actions</th></tr>
