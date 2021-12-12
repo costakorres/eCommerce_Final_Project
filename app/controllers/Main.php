@@ -61,7 +61,7 @@ class Main extends \app\core\Controller{
 	}
 
 
-	#[\assignment2\filters\Login]
+	#[\app\filters\Login]
 	public function search($methodQuery=null){ 
 
 		$query="";

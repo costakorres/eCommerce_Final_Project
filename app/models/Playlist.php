@@ -37,7 +37,7 @@ class Playlist extends \app\core\Model{
 		$STMT->execute(['title'=>$this->title,'description'=>$this->description,'playlist_id'=>$this->playlist_id]);
 	}
 
-	public function delete($playlist_id){//update an Song record
+	public function delete($playlist_id){//update an Playlist record
 		$SQL = 'DELETE FROM `Playlist` WHERE playlist_id = :playlist_id';
 		$STMT = self::$_connection->prepare($SQL);
 		$STMT->execute(['playlist_id'=>$playlist_id]);//associative array with key => value pairs

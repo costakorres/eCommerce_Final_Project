@@ -4,6 +4,7 @@
 </head>
 <body>
 	<a href="/Main/index">Back to your page</a>
+	<h1>Your Songs</h1>
 	<?php
 		if($data['error'] != null){
 			echo "<p>".$data['error']."</p>";

@@ -99,4 +99,10 @@ class Playlist extends \app\core\Controller
 		$myUser = new \app\models\User();
 		$myUser = $myUser->getById($_SESSION['user_id']);
 	}
+
+	public function delete($playlist_id) {
+		$playlist = new \app\models\Playlist();
+        $playlist->delete($playlist_id);
+        header("Location:/Main/index/");
+	}
 }
