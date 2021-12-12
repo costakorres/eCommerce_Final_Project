@@ -12,8 +12,12 @@ class Main extends \app\core\Controller{
 		$mySong = new \app\models\Song();
 		$results = $mySong->getAll($_SESSION['user_id']);
 
+		$myPlaylist = new \app\models\Playlist();
+		$playlists = $myPlaylist->getAll($_SESSION['user_id']);
+
+
 		//note: the paths here are not subject to namespacing because these are NOT classes
-		$this->view('Main/index',['results'=>$results,'my_user'=>$myUser ]);
+		$this->view('Main/index',['results'=>$results,'my_user'=>$myUser,"playlists"=>$playlists ]);
 	}
 
 	/*
@@ -58,10 +62,17 @@ class Main extends \app\core\Controller{
 
 
 	#[\assignment2\filters\Login]
-	public function search(){ // Search records with known first_name attribute
-        if(isset($_POST['action'])) { // If user clicks the Search button
-        	$query = ($_POST['query']); // Saving the query in a variable
+	public function search($methodQuery=null){ 
 
+		$query="";
+        if(isset($_POST['action'])) 
+        { 
+        	$query = ($_POST['query']);
+		}
+		if(!empty($methodQuery))
+		{
+			$query = $methodQuery;
+		}
         	//first we get all the users with names matching the query
             $user = new \app\models\User(); 
             $users = $user->query($query); // Query the username in the database 
@@ -76,12 +87,28 @@ class Main extends \app\core\Controller{
             $song = new \app\models\Song(); 
             $songs = $song->query($query);
 
+
+             //for all the songs that the query has retrieved, check which ones our user liked 
+            $liked_songs = array();
+            $lk = new \app\models\Liked_songs();
+            $temp = new \app\models\Liked_songs();
+            foreach ($songs as $x) 
+            {
+            	$temp = $lk->get($_SESSION['user_id'],$x->song_id);
+            	if($temp)
+        		{
+        			$liked_songs[$x->song_id]=$temp;
+        		}	
+            }
+
             //then we get all the playlists
 			$playlist = new \app\models\Playlist(); 
             $playlists = $playlist->query($query);
 
-            $this->view('Main/search', ['users'=>$users,'songs'=>$songs,'playlists'=>$playlists]);      
-        } 
+            //get liked playlists
+
+            $this->view('Main/search', ['users'=>$users,'songs'=>$songs,'playlists'=>$playlists,"query"=>$query,"liked_songs"=>$liked_songs]);      
+        
     }
 	public function register(){
 

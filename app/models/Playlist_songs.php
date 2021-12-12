@@ -12,6 +12,14 @@ class Playlist_songs extends \app\core\Model{
 		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\Playlist_songs');
 		return $STMT->fetch();//return the record
 	}
+	
+	public function getAllFromPlaylist($playlist_id){
+		$SQL = 'SELECT * FROM playlist_songs WHERE playlist_id = :playlist_id';
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['playlist_id'=>$playlist_id]);
+		$STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\Playlist_songs');
+		return $STMT->fetchAll();//return the record
+	}
 
 	public function insert(){
 		$SQL = 'INSERT INTO playlist_songs(playlist_id,user_id) VALUES (:playlist_id,:user_id)';

@@ -11,6 +11,5 @@ Login
 	Password: <input type='password' name='password' /><br>
 	<input type='submit' name='action' value='Login' />
 </form>
-<a href="/Main/register/">Not registered? Sign up here!</a>
 
 </body></html>

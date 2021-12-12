@@ -5,20 +5,24 @@
 
 <a href="/Main/logout">log out</a>
 <a href="/Song/upload/<?php echo $data['my_user']->user_id;?>">Upload a new song</a>
-<a href="/LikedSongs/index">Liked songs</a>
+<a href="/Liked_songs/index">Liked songs</a>
+<form action='/Main/search' method='post'>
+	<input type='text' name='query' placeholder="Search for user/song/playlist by name"/>
+	<input type='submit' name='action' value='Search'/>
+</form>
+<h1>Your saved playlists</h1>
 <table>
-	<tr><th>Title</th><th>Artist</th><th>Details</th><th>Actions</th>
+	<tr><th>name</th><th>Description</th><th>Actions</th>
 <?php
-foreach($data["results"] as $song){
+
+foreach($data["playlists"] as $p){
 
 	echo "<tr>
-			<td>$song->title</td>
-			<td>$song->artist</td>
-			<td><a href='/Song/details/$song->song_id'>details</a></td>
-			<td> 
-				<a href='/Main/edit/$song->song_id'>edit</a> | 
-				<a href='/Main/delete/$song->song_id'>delete</a>
-			</td>
+			<td>$p->name</td>
+			<td>$p->description</td>
+			<td><a href='/Playlist/consultPlaylist/$p->playlist_id'>View playlist</a> |
+				<a href='/Playlist/addSong/$p->playlist_id'>Modify</a> | 
+				<a href='/Playlist/delete/$p->playlist_id'>Delete</a></td>
 		</tr>";
 }
 ?>
@@ -26,9 +30,7 @@ foreach($data["results"] as $song){
 </br>
 
 
-<form action='/Main/search' method='post'>
-	<input type='text' name='query' placeholder="Search for user/song/playlist by name"/>
-	<input type='submit' name='action' value='Search'/>
-</form>
+
+<a href="/Playlist/make">Make new playlist</a>
 </body>
 </html>

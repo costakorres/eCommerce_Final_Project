@@ -25,7 +25,7 @@ class Song extends \app\core\Controller{
 				else{
 					$song = new \app\models\Song();
 					$songs = $song->getAll($user_id);
-					$this->view('Song/index', ['error'=>"Bad file type or file missing.". 
+					$this->view('Song/upload', ['error'=>"Bad file type or file missing.". 
 						$_FILES['newSong']['tmp_name'],'songs'=>$songs ]);
 					return;
 				}
@@ -34,7 +34,7 @@ class Song extends \app\core\Controller{
 				$filepath = $this->folder.$filename;
 
 				/*if($_FILES['newSong']['size'] > 4000000){
-					$this->view('Song/index', ['error'=>"File too large",
+					$this->view('Song/upload', ['error'=>"File too large",
 						'songs'=>[]]);
 					return;
 				}*/
@@ -45,14 +45,14 @@ class Song extends \app\core\Controller{
 					{
 						//if either title or artist are empty, print error and resend request(?).
 						$songs = $song->getAll($user_id);
-						$this->view('Song/index',['error'=>"Error.Do not leave title or artist empty.",'songs'=>$songs]);
+						$this->view('Song/upload',['error'=>"Error.Do not leave title or artist empty.",'songs'=>$songs]);
 						return;
 					}
 					$song->title = $_POST['title'];
 					$song->artist = $_POST['artist'];
 					$song->description = $_POST['description'];
 					$song->insert($user_id);
-					header('location:/Main/index');
+					header('location:/Main/upload');
 				}
 				else
 					echo "There was an error";
@@ -63,7 +63,7 @@ class Song extends \app\core\Controller{
 			//present the form
 			$song = new \app\models\Song();
 			$songs = $song->getAll($user_id);
-			$this->view('Song/index',['error'=>null,'songs'=>$songs]);
+			$this->view('Song/upload',['error'=>null,'songs'=>$songs]);
 		}
 	}
 
