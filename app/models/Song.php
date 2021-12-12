@@ -62,9 +62,9 @@ class Song extends \app\core\Model{
 	}
 
 	public function insert($user_id){
-		$SQL = 'INSERT INTO Song(title, artist, filename,user_id) VALUES (:title,:artist,:filename,:user_id)';
+		$SQL = 'INSERT INTO Song(title, artist, filename,user_id,description) VALUES (:title,:artist,:filename,:user_id,:description)';
 		$STMT = self::$_connection->prepare($SQL);
-		$STMT->execute(['title'=>$this->title,'artist'=>$this->artist,'filename'=>$this->filename,'user_id'=>$user_id]);//associative array with key => value pairs
+		$STMT->execute(['title'=>$this->title,'artist'=>$this->artist,'filename'=>$this->filename,'user_id'=>$user_id, 'description'=>$this->description]);//associative array with key => value pairs
 	}
 
 	public function update(){//update an Song record

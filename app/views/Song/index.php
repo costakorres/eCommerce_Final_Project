@@ -12,7 +12,9 @@
 		foreach($data['songs'] as $song)
 			echo "<br><audio controls>
 				  <source src='/audio/$song->filename' type='audio/mp3'>
-				  </audio><br>title: ".$song->title."<br>artist: ".$song->artist;
+				  </audio><br>title: ".$song->title
+				  ."<br>artist: ".$song->artist
+				  ."<br>description: ".$song->description;
 	?>
 
 	<h1>Upload a new song</h1>

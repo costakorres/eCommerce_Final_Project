@@ -78,7 +78,7 @@ class Playlist extends \app\core\Controller
 			$playlist = new \app\models\Playlist();
 			$playlist->name = $_POST['name'];
 			$playlist->user_id = $_SESSION['user_id'];
-			$playlist->description = "";
+			$playlist->description = $_POST['description'];
 			$playlist->insert();
 			header('location:/Main/index');
 
@@ -174,9 +174,9 @@ class Playlist extends \app\core\Controller
 		}
 	}
 
-	public function delete($playlist_id) {
-		$playlist = new \app\models\Playlist();
-        $playlist->delete($playlist_id);
-        header("Location:/Main/index/");
-	}
+	// public function delete($playlist_id) {
+	// 	$playlist = new \app\models\Playlist();
+    //     $playlist->delete($playlist_id);
+    //     header("Location:/Main/index/");
+	// }
 }

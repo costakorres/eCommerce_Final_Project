@@ -7,6 +7,7 @@
 	<h1>Make a new playlist</h1>
 	<form method="post" action=''>
 	Playlist name: <input type='text' name='name' /><br>
+	Description: <input type='text' name='description' /><br>
 		<input type="submit" name="action">
 	</form>
 
