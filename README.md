@@ -2,5 +2,5 @@
 eCommerce Final Project Vanier 4th Semester of Computer Science and Technology
 
 Contributors:
-    Constantinos Korres
+    Constantinos Korres,
     Elia Morhej
