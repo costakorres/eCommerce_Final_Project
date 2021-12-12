@@ -3,6 +3,13 @@
 	<title>Song details</title>
 </head>
 <body>
+	<?php
+	if( !empty($data["query"]) )
+	{
+		echo "<a href='/Main/search/".$data["query"]."'>Back to search results</a>";
+	}
+
+	?>
 	<a href="/Main/index">Back to your page</a>
 </br>
 	<?php echo 

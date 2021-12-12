@@ -28,7 +28,7 @@ foreach($data["songs"] as $song)
 	$var = $data["query"];
 	echo "<tr>
 			<td>$song->title</td>
-			<td><a href='/Song/details/$song->song_id'>details</a> | 
+			<td><a href='/Song/details/$song->song_id/$var'>details</a> | 
 				<a href='/Liked_songs/like/$song->song_id/$var'>".(isset($data["liked_songs"][$song->song_id])?"Unlike":"Like")."</a>
 			</td>
 		</tr>";

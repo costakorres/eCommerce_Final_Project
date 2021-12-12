@@ -22,7 +22,7 @@ class Liked_songs extends \app\core\Controller{
 		$this->view('Liked_songs/index',['result'=>$result,'my_user'=>$myUser]);
 	}
 
-	public function like($song_id,$query){
+	public function like($song_id,$query=null,$playlist_id=null){
 
 		$myUser = new \app\models\User();
 		$myUser = $myUser->getById($_SESSION['user_id']);
@@ -30,16 +30,19 @@ class Liked_songs extends \app\core\Controller{
 		$liked_song = new \app\models\Liked_songs();
 		$temp = $liked_song->get($_SESSION['user_id'],$song_id);
 
-		if(! empty($temp) )
+		if(! empty($temp) )//if we had previously liked
 		{	
 			$liked_song->delete($song_id,$_SESSION['user_id']);
-			if(!empty($query))//if query isnt empty it means we called like from search page
+
+			//if were liking from a playlist id
+			if($playlist_id)
 			{
-				header('location:/Main/search/'.$query);
-				
+				header('location:/Playlist/add/'.$playlist_id."/".$query."/".$song_id);
 				return;
 			}
-
+			header('location:/Main/search/'.$query);
+			
+			return;
 		}
 		$liked_song->song_id = $song_id;
 		$liked_song->user_id = $_SESSION['user_id'];
@@ -47,11 +50,12 @@ class Liked_songs extends \app\core\Controller{
 		Liked_songs::refreshLikedSongsOrder($_SESSION['user_id']);
 		$liked_song->insert();
 
-		if(!empty($query))//if query isnt empty it means we called like from search page
-		{
-			header('location:/Main/search/'.$query);
-			
-		}
+		//if were liking from a playlist id
+			if($playlist_id)
+			{
+				header('location:/Playlist/add/'.$playlist_id."/".$query."/".$song_id);
+				return;
+			}
 	}
 
 	public static function refreshLikedSongsOrder($user_id)
