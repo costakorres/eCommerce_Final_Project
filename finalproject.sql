@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2021 at 05:45 PM
+-- Generation Time: Dec 12, 2021 at 08:11 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -51,7 +51,7 @@ CREATE TABLE `liked_songs` (
 
 INSERT INTO `liked_songs` (`user_id`, `song_id`, `order`) VALUES
 (1, 2, 2),
-(1, 4, 2),
+(1, 4, 1),
 (3, 2, 2),
 (3, 4, 1);
 
@@ -95,7 +95,6 @@ INSERT INTO `playlist` (`playlist_id`, `user_id`, `name`, `description`) VALUES
 --
 
 CREATE TABLE `playlist_songs` (
-  `user_id` int(11) NOT NULL,
   `playlist_id` int(11) NOT NULL,
   `song_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -183,7 +182,6 @@ ALTER TABLE `playlist`
 -- Indexes for table `playlist_songs`
 --
 ALTER TABLE `playlist_songs`
-  ADD UNIQUE KEY `user_id` (`user_id`),
   ADD UNIQUE KEY `playlist_id` (`playlist_id`),
   ADD KEY `song_id` (`song_id`);
 
@@ -243,7 +241,8 @@ ALTER TABLE `liked_playlists`
 -- Constraints for table `played_songs`
 --
 ALTER TABLE `played_songs`
-  ADD CONSTRAINT `song_fk` FOREIGN KEY (`song_id`) REFERENCES `song` (`song_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `psToUser_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `song_fk` FOREIGN KEY (`song_id`) REFERENCES `song` (`song_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
