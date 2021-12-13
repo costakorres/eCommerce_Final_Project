@@ -41,7 +41,8 @@ foreach($data["playlists"] as $playlist)
 	$var = $data["query"];
 	echo "<tr>
 			<td>$playlist->name</td>
-			<td><a href='/Playlist/consultPlaylist/$playlist->playlist_id/$var'>Consult playlist</a></td>
+			<td><a href='/Playlist/consultPlaylist/$playlist->playlist_id/$var'>Consult playlist</a> | 
+			<a href='/Liked_playlists/like/$playlist->playlist_id/$var'>".(isset($data["liked_playlists"][$playlist->playlist_id])?"Unlike":"Like")."</a></td>
 		</tr>";
 }
 ?>

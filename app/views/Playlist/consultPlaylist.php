@@ -11,12 +11,13 @@
 <?php
 if( !empty($data["result"]) )
 {
+	$var = isset($data["query"])?$data["query"]:"";
 	foreach($data["result"] as $song)
 	{
 		echo "<tr>
 				<td>$song->title</td>
 				<td>$song->artist</td>
-				<td><a href='/Song/details/$song->song_id'>details</a> | 
+				<td><a href='/Song/details/$song->song_id/$var'>details</a> | 
 					<audio controls>
 						<source src='/audio/$song->filename' type='audio/mp3'>
 					</audio></td>

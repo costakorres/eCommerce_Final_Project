@@ -15,9 +15,25 @@ class Main extends \app\core\Controller{
 		$myPlaylist = new \app\models\Playlist();
 		$playlists = $myPlaylist->getAll($_SESSION['user_id']);
 
+		$liked_playlists = array();
+    $lp = new \app\models\Liked_playlists();
+		$temp = new \app\models\Liked_playlists();
+
+		$likedPlaylists = array();
+
+    foreach ($myPlaylist->query("") as $x) 
+    {
+    	$temp = $lp->get($_SESSION['user_id'],$x->playlist_id);
+      if($temp)
+  		{
+  			$liked_playlists[$x->playlist_id]=$temp;
+  			$likedPlaylists[$x->playlist_id]=$myPlaylist->get($x->playlist_id);;
+  		}	
+    }
+
 
 		//note: the paths here are not subject to namespacing because these are NOT classes
-		$this->view('Main/index',['results'=>$results,'my_user'=>$myUser,"playlists"=>$playlists ]);
+		$this->view('Main/index',['results'=>$results,'my_user'=>$myUser,"playlists"=>$playlists,"liked_playlists"=>$liked_playlists,"liked"=>$likedPlaylists ]);
 	}
 
 	/*
@@ -67,6 +83,11 @@ class Main extends \app\core\Controller{
 		$query="";
         if(isset($_POST['action'])) 
         { 
+        	if(empty($_POST['query'] ))
+        	{
+							header('location:/Main/index');
+							return;
+        	}
         	$query = ($_POST['query']);
 		}
 		if(!empty($methodQuery))
@@ -95,19 +116,30 @@ class Main extends \app\core\Controller{
             foreach ($songs as $x) 
             {
             	$temp = $lk->get($_SESSION['user_id'],$x->song_id);
-            	if($temp)
-        		{
-        			$liked_songs[$x->song_id]=$temp;
-        		}	
+	            	if($temp)
+	        		{
+	        			$liked_songs[$x->song_id]=$temp;
+	        		}	
             }
 
             //then we get all the playlists
-			$playlist = new \app\models\Playlist(); 
+						$playlist = new \app\models\Playlist(); 
             $playlists = $playlist->query($query);
 
             //get liked playlists
+            $liked_playlists = array();
+            $lp= new \app\models\Liked_playlists();
 
-            $this->view('Main/search', ['users'=>$users,'songs'=>$songs,'playlists'=>$playlists,"query"=>$query,"liked_songs"=>$liked_songs]);      
+            foreach ($playlists as $x) 
+            {
+            	$temp = $lp->get($_SESSION['user_id'],$x->playlist_id);
+	            if($temp)
+	        		{
+	        			$liked_playlists[$x->playlist_id]=$temp;
+	        		}	
+            }
+
+            $this->view('Main/search', ['users'=>$users,'songs'=>$songs,'playlists'=>$playlists,"query"=>$query,"liked_songs"=>$liked_songs,"liked_playlists"=>$liked_playlists]);      
         
     }
 	public function register(){

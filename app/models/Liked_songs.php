@@ -31,10 +31,10 @@ class Liked_songs extends \app\core\Model{
 		$STMT = self::$_connection->prepare($SQL);
 		$STMT->execute(['user_id'=>$user_id,'song_id'=>$song_id]);//associative array with key => value pairs
 	}
-	public function getCount($song_id){
-		$SQL = 'SELECT COUNT(*) FROM liked_songs WHERE song_id LIKE :song_id';
+	public function getCount($user_id){
+		$SQL = 'SELECT COUNT(*) FROM liked_songs WHERE user_id LIKE :user_id';
 		$STMT = self::$_connection->prepare($SQL);
-		$STMT->execute(['song_id'=>$song_id]);
+		$STMT->execute(['user_id'=>$user_id]);
 		return $STMT->fetchColumn();//return the record
 	}
 	public function getCountByUser($user_id){

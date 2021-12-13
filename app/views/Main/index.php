@@ -10,7 +10,7 @@
 	<input type='text' name='query' placeholder="Search for user/song/playlist by name"/>
 	<input type='submit' name='action' value='Search'/>
 </form>
-<h1>Your saved playlists</h1>
+<h1>Your own playlists</h1>
 <table>
 	<tr><th>name</th><th>Description</th><th>Actions</th>
 <?php
@@ -21,16 +21,33 @@ foreach($data["playlists"] as $p){
 			<td>$p->name</td>
 			<td>$p->description</td>
 			<td><a href='/Playlist/consultPlaylist/$p->playlist_id'>View playlist</a> |
-				<a href='/Playlist/addSong/$p->playlist_id'>Modify</a> | 
-				<a href='/Playlist/delete/$p->playlist_id'>Delete</a></td>
+				<a href='/Playlist/deletePlaylist/$p->playlist_id'>Delete</a></td>
 		</tr>";
 }
 ?>
 </table>
-</br>
-
-
 
 <a href="/Playlist/make">Make new playlist</a>
+</br>
+<h1>Your Liked Playlists</h1>
+<table>
+	<tr><th>name</th><th>Description</th><th>Actions</th>
+<?php
+
+foreach($data["liked"] as $p){
+
+	echo "<tr>
+			<td>$p->name</td>
+			<td>$p->description</td>
+			<td><a href='/Playlist/consultPlaylist/$p->playlist_id'>View playlist</a> |
+				<a href='/Liked_playlists/like/$p->playlist_id/null/yes'>".(isset($data["liked_playlists"][$p->playlist_id])?"Unlike":"Like")."</a></td>
+		</tr>";
+}
+?>
+</table>
+
+
+
+
 </body>
 </html>

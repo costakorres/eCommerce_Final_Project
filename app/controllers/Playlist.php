@@ -104,6 +104,17 @@ class Playlist extends \app\core\Controller
 			header('location:/Playlist/consultPlaylist/'.$playlist_id."/".$query);
 
 	}
+	public function deletePlaylist($playlist_id,$query=null)
+	{
+			$p = new \app\models\Playlist();
+			if($p->get($playlist_id))
+			{
+				$p->delete($playlist_id);
+				
+			}
+			header('location:/Main/index/');
+
+	}
 	
 	public function add($playlist_id,$query=null,$song_id=null){
 		$myUser = new \app\models\User();

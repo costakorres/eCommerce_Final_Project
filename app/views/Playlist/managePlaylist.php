@@ -10,6 +10,7 @@
 	}
 
 	?>
+	<a href="/Main/index">Back to your page</a>
 	<table>
 	<tr><th>Name</th><th>actions</th></tr>
 <?php

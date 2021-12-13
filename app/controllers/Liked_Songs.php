@@ -40,13 +40,16 @@ class Liked_songs extends \app\core\Controller{
 				header('location:/Playlist/add/'.$playlist_id."/".$query."/".$song_id);
 				return;
 			}
-			header('location:/Main/search/'.$query);
+			if($query)
+				header('location:/Main/search/'.$query);
+			else
+				header('location:/Liked_songs/index');
 			
 			return;
 		}
 		$liked_song->song_id = $song_id;
 		$liked_song->user_id = $_SESSION['user_id'];
-		$liked_song->order = $liked_song->getCount($song_id) + 1;
+		$liked_song->order = $liked_song->getCount($_SESSION['user_id']) + 1;
 		Liked_songs::refreshLikedSongsOrder($_SESSION['user_id']);
 		$liked_song->insert();
 
@@ -56,6 +59,10 @@ class Liked_songs extends \app\core\Controller{
 				header('location:/Playlist/add/'.$playlist_id."/".$query."/".$song_id);
 				return;
 			}
+			if($query)
+				header('location:/Main/search/'.$query);
+			else
+				header('location:/Liked_songs/index');
 	}
 
 	public static function refreshLikedSongsOrder($user_id)
