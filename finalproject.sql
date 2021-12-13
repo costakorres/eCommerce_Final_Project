@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2021 at 08:11 PM
+-- Generation Time: Dec 13, 2021 at 07:11 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -33,6 +33,14 @@ CREATE TABLE `liked_playlists` (
   `order` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `liked_playlists`
+--
+
+INSERT INTO `liked_playlists` (`user_id`, `playlist_id`, `order`) VALUES
+(3, 2, 1),
+(3, 3, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -51,9 +59,8 @@ CREATE TABLE `liked_songs` (
 
 INSERT INTO `liked_songs` (`user_id`, `song_id`, `order`) VALUES
 (1, 2, 2),
-(1, 4, 1),
-(3, 2, 2),
-(3, 4, 1);
+(3, 2, 1),
+(3, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -85,8 +92,8 @@ CREATE TABLE `playlist` (
 --
 
 INSERT INTO `playlist` (`playlist_id`, `user_id`, `name`, `description`) VALUES
-(1, 3, 'playlist 1', ''),
-(2, 1, 'playlist two', '');
+(2, 1, 'playlist two', ''),
+(3, 3, 'playlist 1', '');
 
 -- --------------------------------------------------------
 
@@ -98,6 +105,17 @@ CREATE TABLE `playlist_songs` (
   `playlist_id` int(11) NOT NULL,
   `song_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `playlist_songs`
+--
+
+INSERT INTO `playlist_songs` (`playlist_id`, `song_id`) VALUES
+(1, 2),
+(2, 4),
+(3, 2),
+(3, 4),
+(3, 5);
 
 -- --------------------------------------------------------
 
@@ -120,7 +138,8 @@ CREATE TABLE `song` (
 
 INSERT INTO `song` (`song_id`, `title`, `artist`, `filename`, `user_id`, `description`) VALUES
 (2, 'gds', 'fe', '61a283ad39c37.mp3', 2, ''),
-(4, 'chunguscore', 'large chungus del.', '61a28d312faf3.flac', 2, '');
+(4, '01 - 砂塵の彼方へ', 'eastern youth', '61a28d312faf3.flac', 2, '1999'),
+(5, 'A cruel angel\'s thesis', 'gainax', '61b6ce5812e5e.mp3', 3, 'evangelion opening');
 
 -- --------------------------------------------------------
 
@@ -182,8 +201,7 @@ ALTER TABLE `playlist`
 -- Indexes for table `playlist_songs`
 --
 ALTER TABLE `playlist_songs`
-  ADD UNIQUE KEY `playlist_id` (`playlist_id`),
-  ADD KEY `song_id` (`song_id`);
+  ADD PRIMARY KEY (`playlist_id`,`song_id`);
 
 --
 -- Indexes for table `song`
@@ -212,13 +230,13 @@ ALTER TABLE `played_songs`
 -- AUTO_INCREMENT for table `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `playlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `playlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `song`
 --
 ALTER TABLE `song`
-  MODIFY `song_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `song_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -234,8 +252,8 @@ ALTER TABLE `user`
 -- Constraints for table `liked_playlists`
 --
 ALTER TABLE `liked_playlists`
-  ADD CONSTRAINT `playlist_fk` FOREIGN KEY (`playlist_id`) REFERENCES `playlist` (`playlist_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `playlist_fk` FOREIGN KEY (`playlist_id`) REFERENCES `playlist` (`playlist_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `played_songs`
