@@ -174,6 +174,19 @@ class Playlist extends \app\core\Controller
 		}
 	}
 
+	// public function modifyPlaylist($playlist_id) {
+	// 	$playlist = new \app\models\Playlist();
+	// 	$playlist = $playlist->get($playlist_id);
+	// 	if(isset($_POST['action'])){
+	// 		$playlist->setName($_POST['name']);
+	// 		$playlist->setDescription($_POST['description']);
+	// 		$playlist->update($playlist_id);
+	// 		header('location:/Main/index');
+	// 	} else {
+	// 		$this->view('Main/modifyPlaylist', $playlist);
+	// 	}
+	// }
+
 	// public function delete($playlist_id) {
 	// 	$playlist = new \app\models\Playlist();
     //     $playlist->delete($playlist_id);
