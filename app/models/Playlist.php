@@ -4,11 +4,25 @@ namespace app\models;
 class Playlist extends \app\core\Model{
 	public $name;
 	public $description;
-
 	public $user_id;
 	public $playlist_id;
 
+	public function setName($name){
+		$this->name = $name;
+	}
 
+	public function getName(){
+		return $this->name;
+	}
+	
+	public function setDescription($description){
+		$this->description = $description;
+	}
+
+	public function getDescription(){
+		return $description->description;
+	}	
+	
 	public function getAll($user_id){
 		$SQL = 'SELECT * FROM playlist WHERE `user_id` = :user_id';
 		$STMT = self::$_connection->prepare($SQL);
